@@ -22,11 +22,16 @@ public class StudentController {
         return studentRepository.findAll();
     }
 
-
     @PostMapping("/")
     public Student createStudent(@Valid @RequestBody Student student) {
         return studentRepository.save(student);
     }
+
+    @GetMapping("/{id}")
+    public Student getStudent(@PathVariable(value = "id") Long studentId) {
+        return studentRepository.findById(studentId);
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Student> deleteStudent(@PathVariable(value = "id") Long studentId) {

@@ -11,24 +11,23 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/assignments/")
 public class AssignmentController {
 
     @Autowired
     AssignmentRepository assignmentRepository;
 
-    @GetMapping("/students/{id}")
+    @GetMapping("/{id}")
     public List<Assignment> getAllAssignments(@PathVariable(value = "id") Long studentId) {
-
         return assignmentRepository.findByStudent_Id(studentId);
     }
 
-    @PostMapping("/assignments/{id}")
-    public Assignment createAssignment(@Valid @RequestBody Assignment Assignment) {
+    @PostMapping("/{id}")
+    public Assignment createAssignment(@PathVariable(value = "id") @Valid @RequestBody Assignment Assignment) {
         return assignmentRepository.save(Assignment);
     }
 
-    @DeleteMapping("/assignment/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Assignment> deleteAssignment(@PathVariable(value = "id") Long assignmentId) {
 
         Assignment assignment = assignmentRepository.findOne(assignmentId);
@@ -39,7 +38,4 @@ public class AssignmentController {
         assignmentRepository.delete(assignment);
         return ResponseEntity.ok().build();
     }
-
-
-
 }
